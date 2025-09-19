@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AETERNUS LIBERI - The Whale Collective</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        .hero {
+            background: radial-gradient(circle at 30% 20%, #1a2332 0%, #0f1419 50%, #000000 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, #00ff8820 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, #0088ff20 0%, transparent 50%);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, #00ff88, #0088ff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: #a0a0a0;
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: #d0d0d0;
+            margin-bottom: 3rem;
+            line-height: 1.7;
+        }
+
+        .live-metrics {
+            background: rgba(0, 255, 136, 0.05);
+            border: 1px solid #00ff8830;
+            border-radius: 15px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            margin-bottom: 3rem;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .metric {
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #00ff88;
+            display: block;
+            font-family: 'SF Mono', monospace;
+        }
+
+        .metric-label {
+            font-size: 0.85rem;
+            color: #808080;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 0.5rem;
+        }
+
+        .terminal-window {
+            background: #000000;
+            border: 1px solid #333;
+            border-radius: 10px;
+            overflow: hidden;
+            font-family: 'SF Mono', monospace;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .terminal-header {
+            background: #1a1a1a;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background: #ff5f56; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #27ca3f; }
+
+        .terminal-title {
+            margin-left: 1rem;
+            color: #fff;
+            font-size: 0.9rem;
+        }
+
+        .terminal-content {
+            padding: 1.5rem;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .terminal-line {
+            margin-bottom: 0.5rem;
+        }
+
+        .prompt { color: #00ff88; }
+        .command { color: #0088ff; }
+        .output { color: #ffffff; }
+        .success { color: #00ff88; }
+        .warning { color: #ffaa00; }
+
+        .cta-button {
+            background: linear-gradient(135deg, #00ff88, #0088ff);
+            color: #000;
+            font-size: 1.2rem;
+            font-weight: 700;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(0, 255, 136, 0.5);
+        }
+
+        .proof-section {
+            background: #111111;
+            padding: 6rem 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 4rem;
+            color: #ffffff;
+        }
+
+        .proof-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .proof-card {
+            background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+            border: 1px solid #333;
+            border-radius: 15px;
+            padding: 2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .proof-card:hover {
+            transform: translateY(-5px);
+            border-color: #00ff88;
+        }
+
+        .proof-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .proof-date {
+            color: #808080;
+            font-size: 0.9rem;
+        }
+
+        .proof-gain {
+            color: #00ff88;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .proof-description {
+            color: #d0d0d0;
+            line-height: 1.6;
+        }
+
+        .tech-section {
+            background: #0a0a0a;
+            padding: 6rem 0;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .tech-item {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .tech-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #00ff88;
+            margin-bottom: 1rem;
+        }
+
+        .tech-description {
+            color: #a0a0a0;
+            line-height: 1.6;
+        }
+
+        .exclusive-section {
+            background: linear-gradient(135deg, #001122, #002244);
+            padding: 6rem 0;
+            text-align: center;
+        }
+
+        .exclusive-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .exclusive-badge {
+            background: #00ff88;
+            color: #000;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+        }
+
+        .typewriter {
+            border-right: 2px solid #00ff88;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { border-color: transparent; }
+            51%, 100% { border-color: #00ff88; }
+        }
+
+        .floating-chart {
+            position: absolute;
+            top: 20%;
+            right: -10%;
+            width: 200px;
+            height: 120px;
+            opacity: 0.3;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @media (max-width: 768px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .proof-grid,
+            .tech-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas class="matrix-bg" id="matrix"></canvas>
+
+    <section class="hero">
+        <div class="floating-chart">📊</div>
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <h1 style="letter-spacing: 4px; font-weight: 300;">AETERNUS LIBERI</h1>
+                    <p class="hero-subtitle">Elite Insights. Financial Evolution.</p>
+                    <p class="hero-description">
+                        We are not traders. We are architects of wealth. We do not chase markets—we understand them. 
+                        We do not follow trends—we identify them first. Join the collective that transforms minds through 
+                        superior information and strategic thinking. Only those ready for true financial evolution may enter.
+                    </p>
+                    
+                    <div class="live-metrics">
+                        <div class="metrics-grid">
+                            <div class="metric">
+                                <span class="metric-value" id="win-rate">∞</span>
+                                <div class="metric-label">Wealth Created</div>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-value" id="avg-gain">35</span>
+                                <div class="metric-label">Elite Members</div>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-value" id="signals">+<span id="learner-count">73</span></span>
+                                <div class="metric-label">Active Learners</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <a href="#exclusive" class="cta-button">BECOME AETERNUS</a>
+                </div>
+                
+                <div class="terminal-window">
+                    <div class="terminal-header">
+                        <div class="terminal-dot dot-red"></div>
+                        <div class="terminal-dot dot-yellow"></div>
+                        <div class="terminal-dot dot-green"></div>
+                        <div class="terminal-title">whale_genesis.py - ACTIVE</div>
+                    </div>
+                    <div class="terminal-content">
+                        <div class="terminal-line">
+                            <span class="prompt">aeternus@collective:~$</span> 
+                            <span class="command">python whale_transformation.py</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="output">Initializing consciousness upgrade...</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="success">✓ Initiate #73: Retail → Whale (in progress)</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="success">✓ Portfolio size: $2.3K → $247K (18 months)</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="warning">⚠ New candidate detected</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="prompt">aeternus@collective:~$</span> 
+                            <span class="command">initiate_transformation <span class="typewriter"></span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="proof-section">
+        <div class="container">
+            <h2 class="section-title">The Transformed</h2>
+            <div class="proof-grid">
+                <div class="proof-card">
+                    <div class="proof-header">
+                        <div class="proof-date">Whale #23</div>
+                        <div class="proof-gain">$8K → $340K</div>
+                    </div>
+                    <div class="proof-description">
+                        "The established whales showed me what retail minds cannot see. Information flows differently 
+                        at this level. Technology serves us. The transformation from initiate to whale is complete."
+                    </div>
+                </div>
+                
+                <div class="proof-card">
+                    <div class="proof-header">
+                        <div class="proof-date">Initiate #61</div>
+                        <div class="proof-gain">$3K → $47K</div>
+                    </div>
+                    <div class="proof-description">
+                        "Still ascending, but I see the path now. The whales share information that retail never sees. 
+                        I'm learning to move with precision, not emotion. The metamorphosis continues."
+                    </div>
+                </div>
+                
+                <div class="proof-card">
+                    <div class="proof-header">
+                        <div class="proof-date">Whale #31</div>
+                        <div class="proof-gain">$15K → $890K</div>
+                    </div>
+                    <div class="proof-description">
+                        "Information asymmetry is everything. We see moves before they happen because we have access 
+                        to what retail doesn't. Technology amplifies our advantage. I am no longer becoming—I am."
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="tech-section">
+        <div class="container">
+            <h2 class="section-title">The Transformation Protocol</h2>
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <div class="tech-icon">🧠</div>
+                    <div class="tech-title">Information Advantage</div>
+                    <div class="tech-description">
+                        Access to data streams and intelligence that retail cannot reach. 
+                        See market moves before they become public knowledge.
+                    </div>
+                </div>
+                
+                <div class="tech-item">
+                    <div class="tech-icon">⚡</div>
+                    <div class="tech-title">Patience Cultivation</div>
+                    <div class="tech-description">
+                        Master the art of accumulation during fear. 
+                        Strike when others capitulate. Time is your weapon.
+                    </div>
+                </div>
+                
+                <div class="tech-item">
+                    <div class="tech-icon">👁️</div>
+                    <div class="tech-title">Technological Edge</div>
+                    <div class="tech-description">
+                        Proprietary systems that process market data faster and deeper 
+                        than conventional tools. Technology serves those who know how to wield it.
+                    </div>
+                </div>
+                
+                <div class="tech-item">
+                    <div class="tech-icon">🏛️</div>
+                    <div class="tech-title">Wealth Architecture</div>
+                    <div class="tech-description">
+                        Build generational wealth through systematic accumulation. 
+                        Every position is calculated. Every move is deliberate.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="exclusive-section" id="exclusive">
+        <div class="container">
+            <div class="exclusive-content">
+                <div class="exclusive-badge">THE SUMMONING</div>
+                <h2 class="section-title" style="color: #fff;">Enter The Collective</h2>
+                <p style="font-size: 1.2rem; color: #a0a0a0; margin-bottom: 2rem;">
+                    This is not a trading group. This is a metamorphosis. We will strip away your retail instincts 
+                    and rebuild you as a force of accumulation. Only the worthy may witness the transformation.
+                </p>
+                
+                <div style="background: linear-gradient(135deg, rgba(0,255,136,0.15), rgba(0,136,255,0.15)); border: 2px solid #00ff88; border-radius: 15px; padding: 2rem; margin-bottom: 2rem; text-align: center;">
+                    <h3 style="color: #00ff88; margin-bottom: 1rem; font-size: 1.4rem; font-weight: 700;">🚀 THE MISSION: ELITE INSIGHTS</h3>
+                    <p style="color: #ffffff; font-size: 1.1rem; line-height: 1.6; margin-bottom: 1rem;">
+                        Our purpose is excellence. We provide the highest quality market intelligence and strategic insights.
+                    </p>
+                    <p style="color: #d0d0d0; font-size: 1rem; line-height: 1.6; margin-bottom: 1rem;">
+                        <strong>Every member grows through knowledge.</strong> Superior information creates superior results. 
+                        Together, we elevate our understanding of markets and opportunities.
+                    </p>
+                    <div style="background: rgba(0,0,0,0.3); border-radius: 10px; padding: 1rem; margin-top: 1.5rem;">
+                        <p style="color: #00ff88; font-size: 1rem; font-weight: 600; margin: 0;">
+                            ✨ We ask for nothing in return. Everything is free. ✨
+                        </p>
+                        <p style="color: #a0a0a0; font-size: 0.9rem; margin: 0.5rem 0 0 0;">
+                            Join if you want elite insights and strategic thinking. Level up your market intelligence.
+                        </p>
+                    </div>
+                </div>
+                
+                <div style="background: rgba(0,255,136,0.1); border: 1px solid #00ff88; border-radius: 15px; padding: 2rem; margin-bottom: 3rem;">
+                    <h3 style="color: #00ff88; margin-bottom: 1rem;">The Initiation Includes:</h3>
+                    <div style="text-align: left; max-width: 500px; margin: 0 auto;">
+                        <div style="margin: 0.8rem 0; color: #d0d0d0;">🔬 Market dissection and whale behavior analysis</div>
+                        <div style="margin: 0.8rem 0; color: #d0d0d0;">🧪 Psychology reprogramming protocols</div>
+                        <div style="margin: 0.8rem 0; color: #d0d0d0;">⚗️ Accumulation strategies of the elite</div>
+                        <div style="margin: 0.8rem 0; color: #d0d0d0;">🎭 How to think like institutional capital</div>
+                        <div style="margin: 0.8rem 0; color: #d0d0d0;">⚡ Direct access to the collective mind</div>
+                    </div>
+                </div>
+                
+                <a href="https://t.me/+6foNWsKZU14yNGJk" class="cta-button" style="font-size: 1.4rem; padding: 1.2rem 3rem;">
+                    🔮 BEGIN TRANSFORMATION
+                </a>
+                
+                <p style="margin-top: 2rem; color: #808080; font-size: 0.9rem;">
+                    Access is limited to those who move early. Soon, doors will shut.
+                </p>
+                <p style="margin-top: 0.5rem; color: #606060; font-size: 0.8rem; font-style: italic;">
+                    * Active community growing daily with committed learners.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Matrix background effect
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const matrix = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}";
+        const matrixArray = matrix.split("");
+
+        const fontSize = 10;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+
+        function draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.04)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = '#0F3';
+            ctx.font = fontSize + 'px monospace';
+            
+            for (let i = 0; i < drops.length; i++) {
+                const text = matrixArray[Math.floor(Math.random() * matrixArray.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(draw, 35);
+
+        // Animated counters
+        function animateCounter(element, target, duration = 2000) {
+            const start = 0;
+            const startTime = performance.now();
+            
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                const current = Math.floor(progress * target);
+                element.textContent = current.toLocaleString();
+                
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                }
+            }
+            
+            requestAnimationFrame(update);
+        }
+
+        // Enhanced counter animation for Active Learners with plus sign
+        function animateCounterWithPlus(element, target, duration = 2000) {
+            const startValue = parseInt(element.textContent) || 0;
+            const startTime = performance.now();
+            
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                // Smooth easing function
+                const easeProgress = 1 - Math.pow(1 - progress, 3);
+                const current = Math.floor(startValue + (target - startValue) * easeProgress);
+                element.textContent = current.toLocaleString();
+                
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                } else {
+                    element.textContent = target.toLocaleString();
+                }
+            }
+            
+            requestAnimationFrame(update);
+        }
+
+        // Live metrics animation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate metrics
+            const winRate = document.getElementById('win-rate');
+            const avgGain = document.getElementById('avg-gain');
+            const signals = document.getElementById('signals');
+
+            animateCounter({ textContent: '0%' }, 87.3, 2000);
+            setTimeout(() => winRate.textContent = '87.3%', 2000);
+
+            setTimeout(() => {
+                let gain = 0;
+                const gainInterval = setInterval(() => {
+                    gain += Math.floor(Math.random() * 10) + 5;
+                    if (gain >= 247) {
+                        gain = 247;
+                        clearInterval(gainInterval);
+                    }
+                    avgGain.textContent = `+${gain}%`;
+                }, 50);
+            }, 500);
+
+            // Enhanced Active Learners counter with plus sign and scroll-based increments
+            const learnerCount = document.getElementById('learner-count');
+            let currentCount = 73;
+            
+            // Initial animation
+            animateCounterWithPlus(learnerCount, currentCount, 2500);
+            
+            // Scroll-based increment with multiple triggers throughout the page
+            let scrollCheckpoints = [
+                { scrollY: 300, triggered: false },
+                { scrollY: 800, triggered: false },
+                { scrollY: 1200, triggered: false },
+                { scrollY: 1800, triggered: false }
+            ];
+            
+            window.addEventListener('scroll', () => {
+                let incrementNeeded = false;
+                
+                // Check all scroll checkpoints
+                scrollCheckpoints.forEach(checkpoint => {
+                    if (!checkpoint.triggered && window.scrollY > checkpoint.scrollY) {
+                        checkpoint.triggered = true;
+                        incrementNeeded = true;
+                    }
+                });
+                
+                // Increment counter if needed
+                if (incrementNeeded) {
+                    currentCount += Math.floor(Math.random() * 5) + 1;
+                    animateCounterWithPlus(learnerCount, currentCount, 800);
+                }
+            });
+
+            // Typewriter effect
+            const typewriter = document.querySelector('.typewriter');
+            const commands = ['--subject=ready', '--status=worthy', '--action=INITIATE'];
+            let commandIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+
+            function type() {
+                const currentCommand = commands[commandIndex];
+                
+                if (isDeleting) {
+                    typewriter.textContent = currentCommand.substring(0, charIndex - 1);
+                    charIndex--;
+                } else {
+                    typewriter.textContent = currentCommand.substring(0, charIndex + 1);
+                    charIndex++;
+                }
+
+                if (!isDeleting && charIndex === currentCommand.length) {
+                    setTimeout(() => isDeleting = true, 1500);
+                } else if (isDeleting && charIndex === 0) {
+                    isDeleting = false;
+                    commandIndex = (commandIndex + 1) % commands.length;
+                }
+
+                setTimeout(type, isDeleting ? 50 : 100);
+            }
+
+            setTimeout(type, 3000);
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Resize matrix canvas
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>
