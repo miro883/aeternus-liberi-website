@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AETERNUS LIBERI - Elite Trading Intelligence</title>
+    <title>AETERNUS LIBERI - A Cult in Process</title>
     <style>
         * {
             margin: 0;
@@ -19,257 +19,329 @@
             overflow-x: hidden;
         }
 
-        .matrix-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0.08;
-        }
-
         .hero {
-            background: radial-gradient(circle at 30% 20%, #1a2332 0%, #0f1419 50%, #000000 100%);
+            background: linear-gradient(135deg, #0f1419 0%, #1a2332 50%, #0f1419 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
             text-align: center;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 80%, #00ff8820 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, #0088ff20 0%, transparent 50%);
+            padding: 2rem 1rem;
         }
 
         .container {
-            max-width: 900px;
+            max-width: 600px;
             margin: 0 auto;
-            padding: 0 20px;
             position: relative;
             z-index: 2;
         }
 
         .hero-content h1 {
-            font-size: clamp(3rem, 8vw, 5rem);
-            font-weight: 300;
-            background: linear-gradient(135deg, #00ff88, #0088ff, #00ff88);
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 600;
+            background: linear-gradient(135deg, #00ff88, #ffffff, #00ff88);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 1.5rem;
-            line-height: 1.1;
-            letter-spacing: 4px;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            letter-spacing: 2px;
         }
 
         .hero-subtitle {
-            font-size: 1.4rem;
-            color: #a0a0a0;
+            font-size: 1.3rem;
+            color: #00ff88;
             margin-bottom: 2rem;
-            font-weight: 400;
+            font-weight: 500;
         }
 
         .hero-description {
-            font-size: 1.2rem;
-            color: #d0d0d0;
+            font-size: 1.1rem;
+            color: #ffffff;
             margin-bottom: 3rem;
-            line-height: 1.7;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
+            line-height: 1.6;
+            font-weight: 600;
         }
 
         .cta-button {
-            background: linear-gradient(135deg, #00ff88, #0088ff);
-            color: #000;
-            font-size: 1.4rem;
-            font-weight: 700;
-            padding: 1.5rem 4rem;
+            background: linear-gradient(135deg, #00ff88, #00cc6a);
+            color: #000000;
+            font-size: 1.5rem;
+            font-weight: 800;
+            padding: 1.8rem 5rem;
             border: none;
-            border-radius: 50px;
+            border-radius: 60px;
             cursor: pointer;
             text-decoration: none;
             display: inline-block;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            box-shadow: 0 15px 40px rgba(0, 255, 136, 0.4);
-            margin: 2rem 0;
+            letter-spacing: 3px;
+            box-shadow: 0 20px 60px rgba(0, 255, 136, 0.5);
+            margin: 1rem 0 2rem 0;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
 
         .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 20px 50px rgba(0, 255, 136, 0.6);
-            scale: 1.05;
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 25px 70px rgba(0, 255, 136, 0.7);
+            background: linear-gradient(135deg, #00ff88, #00ffaa);
         }
 
-        .mission-box {
-            background: linear-gradient(135deg, rgba(0,255,136,0.15), rgba(0,136,255,0.15));
-            border: 2px solid #00ff88;
-            border-radius: 20px;
-            padding: 2.5rem;
-            margin: 3rem auto;
-            text-align: center;
-            max-width: 600px;
-            backdrop-filter: blur(10px);
+        .benefits {
+            display: flex;
+            justify-content: space-around;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
 
-        .mission-title {
-            color: #00ff88;
-            margin-bottom: 1rem;
-            font-size: 1.6rem;
-            font-weight: 700;
-        }
-
-        .mission-text {
-            color: #ffffff;
-            font-size: 1.2rem;
-            line-height: 1.6;
-            margin-bottom: 1rem;
-        }
-
-        .mission-subtitle {
-            color: #d0d0d0;
-            font-size: 1rem;
-            line-height: 1.6;
-        }
-
-        .free-badge {
-            background: rgba(0,0,0,0.4);
+        .benefit {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
             border-radius: 15px;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            flex: 1;
+            min-width: 150px;
+            max-width: 180px;
+        }
+
+        .benefit-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .benefit-text {
+            color: #ffffff;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .urgency {
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            border-radius: 10px;
             padding: 1rem;
             margin-top: 1.5rem;
-        }
-
-        .free-text {
-            color: #00ff88;
-            font-size: 1.1rem;
+            color: #ff6b6b;
+            font-size: 0.95rem;
             font-weight: 600;
-            margin: 0;
         }
 
-        .free-subtext {
+        .trust-section {
+            margin: 2rem 0;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .trust-title {
+            color: #00ff88;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .testimonials {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .testimonial {
+            background: rgba(0, 0, 0, 0.3);
+            border-left: 3px solid #00ff88;
+            padding: 1.5rem;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .testimonial-text {
+            color: #ffffff;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            color: #00ff88;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .testimonial-role {
+            color: #a0a0a0;
+            font-size: 0.8rem;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .stat {
+            text-align: center;
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .stat-number {
+            color: #00ff88;
+            font-size: 2rem;
+            font-weight: 800;
+            display: block;
+        }
+
+        .stat-label {
             color: #a0a0a0;
             font-size: 0.9rem;
-            margin: 0.5rem 0 0 0;
+            margin-top: 0.5rem;
         }
 
-        .disclaimer {
-            margin-top: 2rem;
-            color: #808080;
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #a0a0a0;
             font-size: 0.9rem;
+        }
+
+        .trust-icon {
+            color: #00ff88;
+            font-size: 1.2rem;
         }
 
         @media (max-width: 768px) {
-            .hero-content h1 {
-                font-size: clamp(2.5rem, 8vw, 4rem);
-                letter-spacing: 2px;
+            .hero {
+                padding: 1rem;
             }
             
             .cta-button {
-                font-size: 1.2rem;
-                padding: 1.2rem 3rem;
-                letter-spacing: 1px;
+                font-size: 1.3rem;
+                padding: 1.5rem 3rem;
+                letter-spacing: 2px;
             }
             
-            .mission-box {
-                padding: 2rem;
-                margin: 2rem 1rem;
+            .benefits {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .benefit {
+                max-width: 300px;
+                width: 100%;
+            }
+            
+            .trust-section {
+                padding: 1.5rem;
+                margin: 1.5rem 0;
+            }
+            
+            .testimonials {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            .trust-badges {
+                flex-direction: column;
+                gap: 1rem;
             }
         }
     </style>
 </head>
 <body>
-    <canvas class="matrix-bg" id="matrix"></canvas>
-
     <section class="hero">
         <div class="container">
             <div class="hero-content">
                 <h1>AETERNUS LIBERI</h1>
-                <p class="hero-subtitle">Elite Trading Intelligence</p>
+                <p class="hero-subtitle">A CULT IN PROCESS</p>
                 <p class="hero-description">
-                    We are architects of wealth. We do not chase markets—we understand them. 
-                    Join the collective that transforms minds through superior market intelligence.
+                    I'm John. Started with $500 five years ago, got greedy, lost everything in a 2021 pump and dump. With my firstborn coming, I knew I had to master this game. I went all in on learning crypto, psychology, conviction. In 2023, I caught $PEPE early, held through the pain for over a year. Then I started recovering until in 2024 I sold 90% of $PEPE for over 2.5m. Now that my family is set, I want to help others achieve such financial success, now that it's still possible.
                 </p>
                 
-                <div class="mission-box">
-                    <h3 class="mission-title">🚀 ELITE MARKET INSIGHTS</h3>
-                    <p class="mission-text">
-                        Superior information creates superior results. Get access to professional-grade market analysis and strategic insights.
-                    </p>
-                    <p class="mission-subtitle">
-                        <strong>Transform your trading intelligence.</strong> Level up with the collective.
-                    </p>
-                    <div class="free-badge">
-                        <p class="free-text">
-                            ✨ Completely Free Access ✨
-                        </p>
-                        <p class="free-subtext">
-                            No hidden costs. Pure knowledge sharing.
-                        </p>
+                <a href="https://t.me/+6foNWsKZU14yNGJk" class="cta-button">
+                    JOIN NOW - FREE
+                </a>
+                
+                <!-- Trust Section -->
+                <div class="trust-section">
+                    <div class="stats">
+                        <div class="stat">
+                            <span class="stat-number">400+</span>
+                            <div class="stat-label">Active Members</div>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">88%</span>
+                            <div class="stat-label">Success Rate</div>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">110+</span>
+                            <div class="stat-label">People Helped</div>
+                        </div>
+                    </div>
+                    
+                    <h3 class="trust-title">Words that make me continue do this</h3>
+                    
+                    <div class="testimonials">
+                        <div class="testimonial" style="max-width: 500px; margin: 0 auto;">
+                            <div class="testimonial-text">
+                                "John helped me understand the basics of crypto and what conviction is. The calmness I gained from it made me grow more than I had imagined. Now we are good friends, and I will forever be grateful."
+                            </div>
+                            <div class="testimonial-author">@ultrainstinct</div>
+                            <div class="testimonial-role">Telegram Member</div>
+                        </div>
+                    </div>
+                    
+                    <div class="trust-badges">
+                        <div class="trust-badge">
+                            <span class="trust-icon">🔒</span>
+                            <span>100% Free Access</span>
+                        </div>
+                        <div class="trust-badge">
+                            <span class="trust-icon">✅</span>
+                            <span>Verified Community</span>
+                        </div>
+                        <div class="trust-badge">
+                            <span class="trust-icon">🚫</span>
+                            <span>Limited Access</span>
+                        </div>
                     </div>
                 </div>
                 
-                <a href="https://t.me/+6foNWsKZU14yNGJk" class="cta-button">
-                    🔮 JOIN NOW
-                </a>
-                
-                <p class="disclaimer">
-                    Access is limited. Join before doors close.
-                </p>
+                <div class="urgency">
+                    ⏰ Limited spots available - Join before access closes
+                </div>
             </div>
         </div>
     </section>
 
-    <script>
-        // Matrix background effect
-        const canvas = document.getElementById('matrix');
-        const ctx = canvas.getContext('2d');
-
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        const matrix = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}";
-        const matrixArray = matrix.split("");
-
-        const fontSize = 10;
-        const columns = canvas.width / fontSize;
-        const drops = Array(Math.floor(columns)).fill(1);
-
-        function draw() {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.04)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            ctx.fillStyle = '#0F3';
-            ctx.font = fontSize + 'px monospace';
-            
-            for (let i = 0; i < drops.length; i++) {
-                const text = matrixArray[Math.floor(Math.random() * matrixArray.length)];
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-                
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                    drops[i] = 0;
-                }
-                drops[i]++;
-            }
-        }
-
-        setInterval(draw, 35);
-
-        // Resize matrix canvas
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
-    </script>
 </body>
 </html>
